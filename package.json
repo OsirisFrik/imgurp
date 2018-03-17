@@ -1,0 +1,14 @@
+{
+  "name": "imgurp",
+  "version": "0.1.0",
+  "description": "Imgur slideshow browser webextension",
+  "main": "js/index.js",
+  "repository": "git@github.com:aalvarado/imgurp.git",
+  "author": "Adan Alvarado <adan.alvarado7@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "web-ext": "^2.5.0"
+  }
+}
