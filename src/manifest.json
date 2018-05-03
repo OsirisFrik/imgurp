@@ -10,8 +10,9 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.imgur.com/*"],
-      "js": ["imgurp.js"]
+      "matches": ["*://*.imgur.com/gallery/*"],
+      "js": ["imgurp.js"],
+      "run_at": "document_idle"
     }
   ]
 }
