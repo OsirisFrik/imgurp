@@ -6,7 +6,7 @@ const build = path.resolve(__dirname, '..', 'build');
 
 module.exports = { 
   entry: {
-    src: path.join(src, 'imgurp.js')
+    imgurp: path.join(src, 'imgurp')
   },
 
   output: {
@@ -18,7 +18,7 @@ module.exports = {
     extensions: ['.js', '.json'],
     modules: [
       src,
-      path.join(__dirname, '..', 'node_modules'),
+      path.join(__dirname, 'node_modules'),
     ],
   },
 
@@ -26,7 +26,11 @@ module.exports = {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      use: ['babel-loader']
+      use: {
+        loader: 'babel-loader'
+      }
     }]
-  }
+  },
+
+  mode: 'production'
 }
