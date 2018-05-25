@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const src = path.resolve(__dirname, '..', 'src');
 const build = path.resolve(__dirname, '..', 'build');
@@ -31,6 +32,10 @@ module.exports = {
       }
     }]
   },
+
+  plugins: [
+    new CopyWebpackPlugin(['src/manifest.json'])
+  ],
 
   mode: 'production'
 }
