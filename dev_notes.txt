@@ -1,0 +1,3 @@
+Interacting with React elements
+
+document.querySelectorAll('.post-header [data-reactroot]').item(0)[Object.keys(document.querySelectorAll('.post-header [data-reactroot]').item(0))[0]]._currentElement._owner._instance._next()
