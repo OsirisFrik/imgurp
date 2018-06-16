@@ -1,81 +1,46 @@
-var Imgrup = {
-  ImgClass: '.post-image img',
-  PlayerStyle: " \
-    position: absolute; \
-    background-color: black; \
-    left: 0px; \
-    top: 0px; \
-    width: 99%; \
-    height: 99%; \
-    z-index: 99999; \
-    padding: 10px; \
-    overflow: hidden; \
-  ",
+let mediaList = [];
 
-  PlayerClass: 'imgurp-player',
+const HEADER_ELEMENT = '.post-header [data-reactroot]';
+const REACT_FUNCTION = 0;
+const REACT_ELEMENT = 0;
+const DEFAULT_TRANSTION_TIME = 5000;
+const SLIDE_SHOW_ID = 'slide-show';
+const BODY_STYLE = 'overflow: hidden;';
+const SLIDE_SHOW_STYLE = `
+  display: block;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 102;
+  background-color: black;
+`
 
-  ImgClass: '.post-image img',
+const qsa = document.querySelectorAll.bind(document);
+const ce = document.createElement.bind(document);
 
-  player: null,
+const getReactComponent = (selector) => {
+  let el = qsa(selector).item(REACT_ELEMENT).wrappedJSObject;
 
-  images: [],
-
-  init: function() {
-    this.setImages();
-    this.player();
-  },
-
-  player: function() {
-    var player = document.createElement('div');
-    player.setAttribute('style', this.PlayerStyle);
-    player.setAttribute('class', this.PlayerClass);
-    document.body.append(player);
-    player.append(this.images()[0])
-    this.player = player;
-  },
-
-  startGallery: function() {
-  },
-
-  setImages: function() {
-    if (!this.images[0]) {
-      this.images = document.querySelectorAll(this.ImgClass);
-    }
-
-    return this.images;
-  }
-};
-
-var StartButton = {
-  prevButtonClass: '.next-prev',
-  prevButton: null,
-  cssClass: "btn btn-action",
-  textContent: 'Slideshow',
-  style: "margin-left: 5px; \
-    padding-top: 11px; \
-    padding-bottom: 11px; \
-  ",
-
-  attach: function() {
-    this.prevButton = document.querySelectorAll(
-      this.prevButtonClass
-    )[0];
-
-    this.prevButton.append(this.element());
-  },
-
-  element: function() {
-    var e = document.createElement('div');
-    e.setAttribute('style', this.style);
-    e.setAttribute('class', StartButton.cssClass);
-    e.textContent = StartButton.textContent;
-    e.addEventListener("click", function(event) {
-      Imgrup.init();
-    })
-    return e;
-  }
+  return el[Object.keys(el)[REACT_FUNCTION]]
+    ._currentElement
+    ._owner
+    ._instance;
 }
 
-StartButton.attach();
+const getHeader = () => {
+  return getReactComponent(HEADER_ELEMENT);
+}
 
-console.log('loaded');
+const setSlideShowElement = () => {
+  let div = ce('div')
+  div.setAttribute('id', SLIDE_SHOW_ID);
+  div.setAttribute('style', SLIDE_SHOW_STYLE);
+  return document.body.appendChild(div);
+}
+
+setSlideShowElement();
+document.body.setAttribute('style', BODY_STYLE);
+
+//setInterval(() => (getHeader()._next()), DEFAULT_TRANSTION_TIME);
