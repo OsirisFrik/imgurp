@@ -20,4 +20,4 @@ const getHeader = () => {
   return getReactComponent(HEADER_ELEMENT);
 }
 
-setInterval(() => (getHeader()._next()), DEFAULT_TRANSTION_TIME);
+//setInterval(() => (getHeader()._next()), DEFAULT_TRANSTION_TIME);

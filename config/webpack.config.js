@@ -34,7 +34,11 @@ module.exports = {
   },
 
   plugins: [
-    new CopyWebpackPlugin(['src/manifest.json'])
+    new CopyWebpackPlugin(['src/manifest.json']),
+    new CopyWebpackPlugin([{
+      from: 'src/icons/icon.png',
+      to: 'icons/icon.png'
+    }]),
   ],
 
   mode: 'development'
