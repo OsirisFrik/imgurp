@@ -37,5 +37,5 @@ module.exports = {
     new CopyWebpackPlugin(['src/manifest.json'])
   ],
 
-  mode: 'production'
+  mode: 'development'
 }
