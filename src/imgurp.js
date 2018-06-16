@@ -1,6 +1,7 @@
 let mediaList = [];
 
 const HEADER_ELEMENT = '.post-header [data-reactroot]';
+const IMAGES_ELEMENT = '.post-images [data-reactroot]';
 const REACT_FUNCTION = 0;
 const REACT_ELEMENT = 0;
 const DEFAULT_TRANSTION_TIME = 5000;
@@ -29,6 +30,10 @@ const getReactComponent = (selector) => {
     ._instance;
 }
 
+const getReactChildren = (selector) => {
+
+}
+
 const getHeader = () => {
   return getReactComponent(HEADER_ELEMENT);
 }
@@ -40,7 +45,11 @@ const setSlideShowElement = () => {
   return document.body.appendChild(div);
 }
 
-setSlideShowElement();
-document.body.setAttribute('style', BODY_STYLE);
+let images = getReactComponent(IMAGES_ELEMENT);
+
+//console.log(images);
+
+//setSlideShowElement();
+//document.body.setAttribute('style', BODY_STYLE);
 
 //setInterval(() => (getHeader()._next()), DEFAULT_TRANSTION_TIME);
