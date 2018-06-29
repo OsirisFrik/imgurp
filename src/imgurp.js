@@ -24,14 +24,27 @@ const ce = document.createElement.bind(document);
 const getReactComponent = (selector) => {
   let el = qsa(selector).item(REACT_ELEMENT).wrappedJSObject;
 
-  return el[Object.keys(el)[REACT_FUNCTION]]
+  return el[Object.keys(el)[REACT_FUNCTION]];
+}
+
+const getReactChildren = (selector) => {
+  const children = getReactComponent(selector)
+    ._renderedChildren;
+
+  return Object.keys(children).map((obj) => children[obj]);
+}
+
+const getReactInstance = (selector) => {
+  return getReactComponent(selector)
     ._currentElement
     ._owner
     ._instance;
 }
 
-const getReactChildren = (selector) => {
-
+const getReactDisplayName = (reactObj) => {
+  return reactObj
+    .constructor
+    .displayName;
 }
 
 const getHeader = () => {
@@ -45,9 +58,10 @@ const setSlideShowElement = () => {
   return document.body.appendChild(div);
 }
 
-let images = getReactComponent(IMAGES_ELEMENT);
+let images = getReactChildren(IMAGES_ELEMENT);
 
-//console.log(images);
+console.log(images);
+console.log(images.map((i) => getReactDisplayName(i)));
 
 //setSlideShowElement();
 //document.body.setAttribute('style', BODY_STYLE);
