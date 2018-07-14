@@ -69,8 +69,8 @@ setInterval(() => {
     `)
     currentImage += 1
   } else {
-    getHeader()._next()
     currentImage = 0;
+    getHeader()._next()
     images = cloneInto(getImagesFromReactElement(IMAGES_ELEMENT), window).map((i) => (`${IMG_URL}/${i.hash}${i.ext}`));
   }
 }, DEFAULT_TRANSTION_TIME)
