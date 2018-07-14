@@ -5,3 +5,9 @@ document.querySelectorAll('.post-header [data-reactroot]').item(0)[Object.keys(d
 get the react class display name:
 
 ._currentElement._owner._instance.constructor.displayName
+
+document.querySelectorAll('.post-images [data-reactroot]').item(0)[Object.keys(document.querySelectorAll('.post-images [data-reactroot]').item(0))]
+._currentElement._owner._instance
+.props.album_image_store._.posts
+
+.props.data.album_images

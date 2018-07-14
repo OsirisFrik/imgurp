@@ -17,6 +17,7 @@ const SLIDE_SHOW_STYLE = `
   z-index: 102;
   background-color: black;
 `
+const IMG_URL = "//i.imgur.com/"
 
 const qsa = document.querySelectorAll.bind(document);
 const ce = document.createElement.bind(document);
@@ -25,13 +26,6 @@ const getReactComponent = (selector) => {
   let el = qsa(selector).item(REACT_ELEMENT).wrappedJSObject;
 
   return el[Object.keys(el)[REACT_FUNCTION]];
-}
-
-const getReactChildren = (selector) => {
-  const children = getReactComponent(selector)
-    ._renderedChildren;
-
-  return Object.keys(children).map((obj) => children[obj]);
 }
 
 const getReactInstance = (selector) => {
@@ -48,22 +42,35 @@ const getReactDisplayName = (reactObj) => {
 }
 
 const getHeader = () => {
-  return getReactComponent(HEADER_ELEMENT);
+  return getReactInstance(HEADER_ELEMENT);
 }
 
 const setSlideShowElement = () => {
   let div = ce('div')
   div.setAttribute('id', SLIDE_SHOW_ID);
   div.setAttribute('style', SLIDE_SHOW_STYLE);
-  return document.body.appendChild(div);
+  document.body.appendChild(div);
+
+  return div
 }
 
-let images = getReactChildren(IMAGES_ELEMENT);
+const getImagesFromReactElement = (selector) => 
+  (getReactInstance(selector).props.data.album_images)
 
-console.log(images);
-console.log(images.map((i) => getReactDisplayName(i)));
+let images = cloneInto(getImagesFromReactElement(IMAGES_ELEMENT), window).map((i) => (`${IMG_URL}${i.hash}${i.ext}`));
 
-//setSlideShowElement();
-//document.body.setAttribute('style', BODY_STYLE);
+let show = setSlideShowElement();
+let currentImage = 0;
 
-//setInterval(() => (getHeader()._next()), DEFAULT_TRANSTION_TIME);
+setInterval(() => {
+  if (images[currentImage]) {
+    show.setAttribute('style', `${SLIDE_SHOW_STYLE}; background-image: url('${images[currentImage]}'); background-repeat: no-repeat;
+      background-position: center;
+    `)
+    currentImage += 1
+  } else {
+    getHeader()._next()
+    currentImage = 0;
+    images = cloneInto(getImagesFromReactElement(IMAGES_ELEMENT), window).map((i) => (`${IMG_URL}/${i.hash}${i.ext}`));
+  }
+}, DEFAULT_TRANSTION_TIME)
